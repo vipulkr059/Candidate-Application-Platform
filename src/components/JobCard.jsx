@@ -19,15 +19,12 @@ const JobCard = ({ data }) => {
 
   const {
     companyName,
-    jdLink,
     jobDetailsFromCompany,
     jobRole,
     location,
     logoUrl,
-    maxExp,
     minJdSalary,
     maxJdSalary,
-    salaryCurrencyCode,
     minExp,
   } = data;
 

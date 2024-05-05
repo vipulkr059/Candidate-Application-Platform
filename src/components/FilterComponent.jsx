@@ -19,7 +19,13 @@ const FilterComponent = () => {
     dispatch(setFilters({ [name]: value ? value : null }));
   };
   return (
-    <Grid container spacing={2} alignItems="center" padding={5}>
+    <Grid
+      container
+      spacing={2}
+      alignItems="center"
+      justifyContent="center"
+      padding={5}
+    >
       <Grid item xs={12} sm={6} md={2}>
         <FormControl fullWidth>
           <InputLabel id="role-label">Roles</InputLabel>

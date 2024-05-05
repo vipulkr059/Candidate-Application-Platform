@@ -104,7 +104,13 @@ const CardGrid = () => {
       }}
     >
       <FilterComponent />
-      <Grid container spacing={3} padding={5}>
+      <Grid
+        container
+        spacing={3}
+        alignItems="center"
+        justifyContent="center"
+        padding={5}
+      >
         {Array.isArray(filterData()) &&
           filterData().map((item, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
@@ -113,13 +119,11 @@ const CardGrid = () => {
           ))}
 
         {loading &&
-          Array.from({ length: 10 }).map((_, index) => {
-            return (
-              <Grid item xs={12} sm={6} md={3} key={index}>
-                <Skeleton variant="rounded" width={300} height={400} />{" "}
-              </Grid>
-            );
-          })}
+          Array.from({ length: 20 }).map((_, index) => (
+            <Grid item xs={12} sm={4} md={3} key={index}>
+              <Skeleton variant="rounded" width={300} height={400} />
+            </Grid>
+          ))}
 
         {error && <p>Error: {error.message}</p>}
       </Grid>
