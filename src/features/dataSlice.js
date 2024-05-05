@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
   data: [],
+  filteredData: [],
   loading: false,
   error: null,
   offset: 0,
@@ -40,7 +41,24 @@ export const fetchData = createAsyncThunk(
 const dataSlice = createSlice({
   name: "data",
   initialState,
-  reducers: {},
+  reducers: {
+    applyFilters(state, action) {
+      const { role, location, salary, remote, experience } = action.payload;
+      const filteredData = state.data.filter((item) => {
+        return (
+          (!role || item.jobRole === role) &&
+          (!location || item.location === location) &&
+          (!salary || item.minJdSalary >= salary) &&
+          (!experience || (item.minExp != null && item.minExp >= experience)) &&
+          (!remote ||
+            (remote === "onsite"
+              ? item.location !== "remote"
+              : item.location === remote))
+        );
+      });
+      state.filteredData = filteredData;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchData.pending, (state) => {
@@ -59,5 +77,5 @@ const dataSlice = createSlice({
       });
   },
 });
-
+export const { applyFilters } = dataSlice.actions;
 export default dataSlice.reducer;
