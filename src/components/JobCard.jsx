@@ -11,6 +11,8 @@ import {
 } from "@mui/material";
 
 const JobCard = ({ data }) => {
+  const [showMore, setShowMore] = useState(false);
+
   const {
     companyName,
     jdLink,
@@ -24,6 +26,15 @@ const JobCard = ({ data }) => {
     salaryCurrencyCode,
     minExp,
   } = data;
+
+  const truncatedDetails = jobDetailsFromCompany
+    .split(" ")
+    .slice(0, 50)
+    .join(" "); // Show first 50 words
+
+  const toggleShowMore = () => {
+    setShowMore(!showMore);
+  };
 
   return (
     <Card sx={{ maxWidth: 300, padding: "10px", borderRadius: "15px" }}>
@@ -51,7 +62,16 @@ const JobCard = ({ data }) => {
           Estimated Salary: {minJdSalary} - {maxJdSalary} LPA
         </Typography>
         <Typography variant="body2" component="p">
-          {jobDetailsFromCompany}
+          {showMore ? jobDetailsFromCompany : truncatedDetails}
+          {/* Render "Show more" button only if job details are longer */}
+          {jobDetailsFromCompany.length > 50 && (
+            <button
+              onClick={toggleShowMore}
+              style={{ border: "none", background: "none", cursor: "pointer" }}
+            >
+              {showMore ? "Show less" : "...Show more"}
+            </button>
+          )}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
           Minimum Experience
