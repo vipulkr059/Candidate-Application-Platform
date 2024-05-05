@@ -1,5 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { Box, CircularProgress, Container, Grid } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Container,
+  Grid,
+  Skeleton,
+} from "@mui/material";
 import JobCard from "./JobCard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../features/dataSlice";
@@ -10,7 +16,45 @@ const CardGrid = () => {
   const { data, filteredData, loading, error, hasMore } = useSelector(
     (state) => state.data
   );
+  const { role, location, experience, remote, salary, companyName } =
+    useSelector((state) => state.filter);
+
   const containerRef = useRef(null);
+
+  const filterData = () => {
+    let tempData = data;
+    tempData = tempData.filter((item) => {
+      if (role && item.jobRole !== role) {
+        return false;
+      }
+      if (location && item.location !== location) {
+        return false;
+      }
+      if (companyName && item.companyName !== companyName) {
+        return false;
+      }
+
+      if (salary && item.minJdSalary < salary) {
+        return false;
+      }
+
+      if (experience && item.minExp < experience) {
+        return false;
+      }
+      if (
+        remote &&
+        (remote === "remote"
+          ? item.location !== "remote"
+          : item.location === "remote")
+      ) {
+        return false;
+      }
+
+      return true;
+    });
+
+    return tempData;
+  };
 
   const handleScroll = () => {
     const container = containerRef.current;
@@ -29,6 +73,7 @@ const CardGrid = () => {
 
   useEffect(() => {
     // Fetch initial data when the component mounts
+
     dispatch(fetchData({ offset: 0, limit: 10 }));
   }, [dispatch]);
 
@@ -59,21 +104,25 @@ const CardGrid = () => {
       }}
     >
       <FilterComponent />
-      <Grid container spacing={3}>
-        {filteredData &&
-          filteredData.map((item, index) => (
+      <Grid container spacing={3} padding={5}>
+        {Array.isArray(filterData()) &&
+          filterData().map((item, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
               <JobCard data={item} />
             </Grid>
           ))}
 
+        {loading &&
+          Array.from({ length: 10 }).map((_, index) => {
+            return (
+              <Grid item xs={12} sm={6} md={3} key={index}>
+                <Skeleton variant="rounded" width={300} height={400} />{" "}
+              </Grid>
+            );
+          })}
+
         {error && <p>Error: {error.message}</p>}
       </Grid>
-      {loading && (
-        <Box sx={{ display: "flex" }}>
-          <CircularProgress />
-        </Box>
-      )}
     </Container>
   );
 };

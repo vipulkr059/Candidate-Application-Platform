@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { FormControl, InputLabel, Select, MenuItem, Grid } from "@mui/material";
-import { applyFilters } from "../features/dataSlice";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Grid,
+  TextField,
+} from "@mui/material";
+import { setFilters } from "../features/filterSlice";
 
 const FilterComponent = () => {
   const dispatch = useDispatch();
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-    dispatch(applyFilters({ [name]: value }));
+
+    dispatch(setFilters({ [name]: value ? value : null }));
   };
   return (
-    <Grid container spacing={2} alignItems="center">
+    <Grid container spacing={2} alignItems="center" padding={5}>
       <Grid item xs={12} sm={6} md={2}>
         <FormControl fullWidth>
           <InputLabel id="role-label">Roles</InputLabel>
@@ -57,7 +65,7 @@ const FilterComponent = () => {
             name="experience"
             onChange={handleFilterChange}
           >
-            <MenuItem value="">All</MenuItem>
+            <MenuItem defaultValue={0}>All</MenuItem>
             <MenuItem value="1">1</MenuItem>
             <MenuItem value="2">2</MenuItem>
             <MenuItem value="3">3</MenuItem>
@@ -66,7 +74,7 @@ const FilterComponent = () => {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={12} sm={6} md={2}>
+      <Grid item xs={12} sm={6} md={1}>
         <FormControl fullWidth>
           <InputLabel id="remote-label">Remote</InputLabel>
           <Select
@@ -84,9 +92,9 @@ const FilterComponent = () => {
       </Grid>
       <Grid item xs={12} sm={6} md={2}>
         <FormControl fullWidth>
-          <InputLabel id="salary-label">Min Base Pay</InputLabel>
+          <InputLabel id="salary-label">Min Base Pay Salary</InputLabel>
           <Select
-            label="Min Base Pay"
+            label="Min Base Pay Salary"
             labelId="salary-label"
             id="salary-select"
             name="salary"
@@ -98,6 +106,15 @@ const FilterComponent = () => {
             <MenuItem value="3">3L</MenuItem>
             <MenuItem value="4">4L</MenuItem>
           </Select>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={6} md={2}>
+        <FormControl fullWidth>
+          <TextField
+            id="outlined-basic"
+            label="Search Company Name"
+            variant="outlined"
+          />
         </FormControl>
       </Grid>
     </Grid>
