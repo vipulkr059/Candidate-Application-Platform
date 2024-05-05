@@ -4,7 +4,6 @@ import "./index.css";
 import { Provider } from "react-redux";
 import CardGrid from "./components/CardGrid";
 import store from "./store";
-import { Container } from "@mui/material";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

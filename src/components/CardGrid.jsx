@@ -104,13 +104,7 @@ const CardGrid = () => {
       }}
     >
       <FilterComponent />
-      <Grid
-        container
-        spacing={3}
-        alignItems="center"
-        justifyContent="center"
-        padding={5}
-      >
+      <Grid container spacing={3} padding={5}>
         {Array.isArray(filterData()) &&
           filterData().map((item, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>

@@ -46,30 +46,42 @@ const JobCard = ({ data }) => {
       <CardHeader
         avatar={<Avatar src={logoUrl} />}
         title={
-          <Typography variant="subtitle2" color="GrayText">
+          <Typography variant="subtitle2" color="textSecondary">
             {companyName}
           </Typography>
         }
         subheader={
           <>
-            <Typography variant="body2" color="black">
+            <Typography variant="body2" color="textPrimary">
               {jobRole.toUpperCase()}
             </Typography>
-            <Typography variant="caption" color="black">
+            <Typography variant="caption" color="black" fontWeight={600}>
               {location.toUpperCase()}
             </Typography>
           </>
         }
       />
       <CardContent>
-        <Typography variant="body2" color="GrayText" component="p">
-          Estimated Salary: {minJdSalary} - {maxJdSalary} LPA{" "}
+        <Typography
+          variant="subtitle2"
+          color="textSecondary"
+          component="p"
+          fontWeight={500}
+        >
+          Estimated Salary: ₹{minJdSalary} - {maxJdSalary} LPA{" "}
           <CheckBoxIcon sx={{ color: "#29bf12" }} />
         </Typography>
-        <Typography variant="subtitle1" component="p">
+        <Typography variant="h6" component="p" fontWeight={500}>
           About Company :
         </Typography>
-        <Typography variant="body2" component="p">
+        <Typography variant="subtitle1" component="p" fontWeight={700}>
+          About us
+        </Typography>
+        <Typography
+          variant="body2"
+          component="p"
+          sx={{ overflow: showMore ? "auto" : "hidden", maxHeight: "140px" }}
+        >
           {showMore ? jobDetailsFromCompany : truncatedDetails}
           {/* Render "Show more" button only if job details are longer */}
           {jobDetailsFromCompany.length > 50 && (
@@ -89,7 +101,7 @@ const JobCard = ({ data }) => {
         <Typography variant="body2" color="textSecondary" component="p">
           Minimum Experience
         </Typography>
-        <Typography variant="body2" color="textPrimary" component="p">
+        <Typography variant="body1" color="textPrimary" component="p">
           {minExp} years
         </Typography>
       </CardContent>

@@ -120,6 +120,8 @@ const FilterComponent = () => {
             id="outlined-basic"
             label="Search Company Name"
             variant="outlined"
+            value=""
+            onChange={handleFilterChange}
           />
         </FormControl>
       </Grid>
