@@ -11,8 +11,15 @@ import {
 import { setFilters } from "../features/filterSlice";
 
 const FilterComponent = () => {
+  const [searchText, setSearchText] = useState("");
+  const [role, setRole] = useState("");
   const dispatch = useDispatch();
 
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchText(value);
+    handleFilterChange(e);
+  };
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
 
@@ -53,6 +60,7 @@ const FilterComponent = () => {
             id="location-select"
             name="location"
             onChange={handleFilterChange}
+            defaultValue=""
           >
             <MenuItem value="">All</MenuItem>
             <MenuItem value="delhi ncr">Delhi NCR</MenuItem>
@@ -70,6 +78,7 @@ const FilterComponent = () => {
             id="experience-select"
             name="experience"
             onChange={handleFilterChange}
+            defaultValue=""
           >
             <MenuItem defaultValue={0}>All</MenuItem>
             <MenuItem value="1">1</MenuItem>
@@ -89,6 +98,7 @@ const FilterComponent = () => {
             id="remote-select"
             name="remote"
             onChange={handleFilterChange}
+            defaultValue=""
           >
             <MenuItem value="">All</MenuItem>
             <MenuItem value="remote">Remote</MenuItem>
@@ -105,6 +115,7 @@ const FilterComponent = () => {
             id="salary-select"
             name="salary"
             onChange={handleFilterChange}
+            defaultValue=""
           >
             <MenuItem value="">All</MenuItem>
             <MenuItem value="1">1L</MenuItem>
@@ -120,8 +131,9 @@ const FilterComponent = () => {
             id="outlined-basic"
             label="Search Company Name"
             variant="outlined"
-            value=""
-            onChange={handleFilterChange}
+            name="companyName"
+            value={searchText}
+            onChange={handleSearchChange}
           />
         </FormControl>
       </Grid>

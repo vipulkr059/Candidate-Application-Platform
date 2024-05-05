@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
   data: [],
-  filteredData: [],
   loading: false,
   error: null,
   offset: 0,

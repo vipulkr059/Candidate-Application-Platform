@@ -68,7 +68,9 @@ const JobCard = ({ data }) => {
           component="p"
           fontWeight={500}
         >
-          Estimated Salary: ₹{minJdSalary} - {maxJdSalary} LPA{" "}
+          {`Estimated Salary: ₹${
+            minJdSalary ? minJdSalary + " -" : ""
+          } ${maxJdSalary} LPA`}
           <CheckBoxIcon sx={{ color: "#29bf12" }} />
         </Typography>
         <Typography variant="h6" component="p" fontWeight={500}>

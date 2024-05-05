@@ -16,7 +16,6 @@ const filterSlice = createSlice({
     setFilters(state, action) {
       const { role, location, remote, experience, salary, companyName } =
         action.payload;
-      console.log(action.payload);
       if (role) {
         state.role = role;
       }
@@ -33,6 +32,7 @@ const filterSlice = createSlice({
         state.salary = salary;
       }
       if (companyName) {
+        console.log(companyName);
         state.companyName = companyName;
       }
     },

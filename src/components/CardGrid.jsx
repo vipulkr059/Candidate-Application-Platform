@@ -13,16 +13,14 @@ import FilterComponent from "./FilterComponent";
 
 const CardGrid = () => {
   const dispatch = useDispatch();
-  const { data, filteredData, loading, error, hasMore } = useSelector(
-    (state) => state.data
-  );
+  const { data, loading, error, hasMore } = useSelector((state) => state.data);
   const { role, location, experience, remote, salary, companyName } =
     useSelector((state) => state.filter);
 
   const containerRef = useRef(null);
 
   const filterData = () => {
-    let tempData = data;
+    let tempData = [...data];
     tempData = tempData.filter((item) => {
       if (role && item.jobRole !== role) {
         return false;
@@ -30,7 +28,8 @@ const CardGrid = () => {
       if (location && item.location !== location) {
         return false;
       }
-      if (companyName && item.companyName !== companyName) {
+      if (companyName && item.companyName !== companyName.toLowerCase()) {
+        console.log(companyName);
         return false;
       }
 
