@@ -8,6 +8,7 @@ import {
   CardActions,
   Button,
   Chip,
+  CardActionArea,
 } from "@mui/material";
 
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
@@ -38,76 +39,81 @@ const JobCard = ({ data }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 300, padding: "10px", borderRadius: "15px" }}>
+    <Card
+      sx={{ maxWidth: 300, padding: "10px", borderRadius: "15px" }}
+      variant="outlined"
+    >
       <Chip
         label="Posted 10 days ago"
         icon={<HourglassBottomIcon color="warning" />}
       />
-      <CardHeader
-        avatar={<Avatar src={logoUrl} />}
-        title={
-          <Typography variant="subtitle2" color="textSecondary">
-            {companyName}
+      <CardActionArea>
+        <CardHeader
+          avatar={<Avatar src={logoUrl} />}
+          title={
+            <Typography variant="subtitle2" color="textSecondary">
+              {companyName}
+            </Typography>
+          }
+          subheader={
+            <>
+              <Typography variant="body2" color="textPrimary">
+                {jobRole.toUpperCase()}
+              </Typography>
+              <Typography variant="caption" color="black" fontWeight={600}>
+                {location.toUpperCase()}
+              </Typography>
+            </>
+          }
+        />
+        <CardContent>
+          <Typography
+            sx={{ display: "flex", alignItems: "center" }}
+            variant="subtitle2"
+            color="textSecondary"
+            component="p"
+            fontWeight={500}
+          >
+            {`Estimated Salary: ₹${
+              minJdSalary ? minJdSalary + " -" : ""
+            } ${maxJdSalary} LPA`}
+            <CheckBoxIcon sx={{ color: "#29bf12" }} />
           </Typography>
-        }
-        subheader={
-          <>
-            <Typography variant="body2" color="textPrimary">
-              {jobRole.toUpperCase()}
-            </Typography>
-            <Typography variant="caption" color="black" fontWeight={600}>
-              {location.toUpperCase()}
-            </Typography>
-          </>
-        }
-      />
-      <CardContent>
-        <Typography
-          variant="subtitle2"
-          color="textSecondary"
-          component="p"
-          fontWeight={500}
-        >
-          {`Estimated Salary: ₹${
-            minJdSalary ? minJdSalary + " -" : ""
-          } ${maxJdSalary} LPA`}
-          <CheckBoxIcon sx={{ color: "#29bf12" }} />
-        </Typography>
-        <Typography variant="h6" component="p" fontWeight={500}>
-          About Company :
-        </Typography>
-        <Typography variant="subtitle1" component="p" fontWeight={700}>
-          About us
-        </Typography>
-        <Typography
-          variant="body2"
-          component="p"
-          sx={{ overflow: showMore ? "auto" : "hidden", maxHeight: "140px" }}
-        >
-          {showMore ? jobDetailsFromCompany : truncatedDetails}
-          {/* Render "Show more" button only if job details are longer */}
-          {jobDetailsFromCompany.length > 50 && (
-            <button
-              onClick={toggleShowMore}
-              style={{
-                border: "none",
-                background: "none",
-                cursor: "pointer",
-                color: "Highlight",
-              }}
-            >
-              {showMore ? "Show less" : "...Show more"}
-            </button>
-          )}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          Minimum Experience
-        </Typography>
-        <Typography variant="body1" color="textPrimary" component="p">
-          {minExp} years
-        </Typography>
-      </CardContent>
-
+          <Typography variant="h6" component="p" fontWeight={500}>
+            About Company :
+          </Typography>
+          <Typography variant="subtitle1" component="p" fontWeight={700}>
+            About us
+          </Typography>
+          <Typography
+            variant="body2"
+            component="p"
+            sx={{ overflow: showMore ? "auto" : "hidden", maxHeight: "140px" }}
+          >
+            {showMore ? jobDetailsFromCompany : truncatedDetails}
+            {/* Render "Show more" button only if job details are longer */}
+            {jobDetailsFromCompany.length > 50 && (
+              <button
+                onClick={toggleShowMore}
+                style={{
+                  border: "none",
+                  background: "none",
+                  cursor: "pointer",
+                  color: "Highlight",
+                }}
+              >
+                {showMore ? "Show less" : "...Show more"}
+              </button>
+            )}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Minimum Experience
+          </Typography>
+          <Typography variant="body1" color="textPrimary" component="p">
+            {minExp} years
+          </Typography>
+        </CardContent>
+      </CardActionArea>
       <CardActions>
         <Button
           sx={{

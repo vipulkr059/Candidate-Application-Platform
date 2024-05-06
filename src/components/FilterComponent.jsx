@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   FormControl,
   InputLabel,
@@ -12,7 +12,8 @@ import { setFilters } from "../features/filterSlice";
 
 const FilterComponent = () => {
   const [searchText, setSearchText] = useState("");
-  const [role, setRole] = useState("");
+  const { role, location, experience, remote, salary, companyName } =
+    useSelector((state) => state.filter);
   const dispatch = useDispatch();
 
   const handleSearchChange = (e) => {
@@ -22,7 +23,6 @@ const FilterComponent = () => {
   };
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-
     dispatch(setFilters({ [name]: value ? value : null }));
   };
   return (
@@ -41,6 +41,7 @@ const FilterComponent = () => {
             labelId="role-label"
             id="role-select"
             name="role"
+            value={role}
             onChange={handleFilterChange}
           >
             <MenuItem value="">All</MenuItem>
@@ -60,7 +61,7 @@ const FilterComponent = () => {
             id="location-select"
             name="location"
             onChange={handleFilterChange}
-            defaultValue=""
+            value={location}
           >
             <MenuItem value="">All</MenuItem>
             <MenuItem value="delhi ncr">Delhi NCR</MenuItem>
@@ -71,14 +72,14 @@ const FilterComponent = () => {
       </Grid>
       <Grid item xs={12} sm={6} md={2}>
         <FormControl fullWidth>
-          <InputLabel id="experience-label">Experience</InputLabel>
+          <InputLabel id="experience-label">Min Experience</InputLabel>
           <Select
             label="Experience"
             labelId="experience-label"
             id="experience-select"
             name="experience"
             onChange={handleFilterChange}
-            defaultValue=""
+            value={experience}
           >
             <MenuItem defaultValue={0}>All</MenuItem>
             <MenuItem value="1">1</MenuItem>
@@ -98,7 +99,7 @@ const FilterComponent = () => {
             id="remote-select"
             name="remote"
             onChange={handleFilterChange}
-            defaultValue=""
+            value={remote}
           >
             <MenuItem value="">All</MenuItem>
             <MenuItem value="remote">Remote</MenuItem>
@@ -115,7 +116,7 @@ const FilterComponent = () => {
             id="salary-select"
             name="salary"
             onChange={handleFilterChange}
-            defaultValue=""
+            value={salary}
           >
             <MenuItem value="">All</MenuItem>
             <MenuItem value="1">1L</MenuItem>
