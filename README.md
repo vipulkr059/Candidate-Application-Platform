@@ -7,7 +7,7 @@ This is a simple React application that demonstrates basic features and best pra
 ## Features
 
 - **Component-based Structure**: Utilizes React's component-based architecture for a modular and reusable UI.
-- **State Management**: Implements state management using React hooks and possibly Redux for more complex applications.
+- **State Management**: Implements state management using React hooks and Redux for more complex applications.
 - **API Integration**: Demonstrates fetching data from an API using `fetch` using Thunk.
 - **Styling**: Uses Material UI for styling components.
 
