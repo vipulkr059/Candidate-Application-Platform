@@ -16,25 +16,17 @@ const filterSlice = createSlice({
     setFilters(state, action) {
       const { role, location, remote, experience, salary, companyName } =
         action.payload;
-      if (role) {
-        state.role = role;
-      }
-      if (location) {
-        state.location = location;
-      }
-      if (remote) {
-        state.remote = remote;
-      }
-      if (experience) {
-        state.experience = experience;
-      }
-      if (salary) {
-        state.salary = salary;
-      }
-      if (companyName) {
-        console.log(companyName);
-        state.companyName = companyName;
-      }
+      state.role = role ? role : "";
+
+      state.location = location ? location : "";
+
+      state.remote = remote ? remote : "";
+
+      state.experience = experience ? experience : "";
+
+      state.salary = salary ? salary : "";
+
+      state.companyName = companyName ? companyName : "";
     },
   },
 });

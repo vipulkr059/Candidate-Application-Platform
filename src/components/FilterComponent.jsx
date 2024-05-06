@@ -23,7 +23,8 @@ const FilterComponent = () => {
   };
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-    dispatch(setFilters({ [name]: value ? value : null }));
+    const updatedValue = value === "all" ? "" : value;
+    dispatch(setFilters({ [name]: updatedValue }));
   };
   return (
     <Grid
@@ -44,7 +45,7 @@ const FilterComponent = () => {
             value={role}
             onChange={handleFilterChange}
           >
-            <MenuItem value="">All</MenuItem>
+            <MenuItem value="all">All</MenuItem>
             <MenuItem value="frontend">Frontend</MenuItem>
             <MenuItem value="backend">Backend</MenuItem>
             <MenuItem value="android">Android</MenuItem>
@@ -63,7 +64,7 @@ const FilterComponent = () => {
             onChange={handleFilterChange}
             value={location}
           >
-            <MenuItem value="">All</MenuItem>
+            <MenuItem value="all">All</MenuItem>
             <MenuItem value="delhi ncr">Delhi NCR</MenuItem>
             <MenuItem value="banglore">Banglore</MenuItem>
             <MenuItem value="mumbai">Mumbai</MenuItem>
@@ -81,7 +82,7 @@ const FilterComponent = () => {
             onChange={handleFilterChange}
             value={experience}
           >
-            <MenuItem defaultValue={0}>All</MenuItem>
+            <MenuItem value="all">All</MenuItem>
             <MenuItem value="1">1</MenuItem>
             <MenuItem value="2">2</MenuItem>
             <MenuItem value="3">3</MenuItem>
@@ -101,7 +102,7 @@ const FilterComponent = () => {
             onChange={handleFilterChange}
             value={remote}
           >
-            <MenuItem value="">All</MenuItem>
+            <MenuItem value="all">All</MenuItem>
             <MenuItem value="remote">Remote</MenuItem>
             <MenuItem value="onsite">On-site</MenuItem>
           </Select>
@@ -118,7 +119,7 @@ const FilterComponent = () => {
             onChange={handleFilterChange}
             value={salary}
           >
-            <MenuItem value="">All</MenuItem>
+            <MenuItem value="all">All</MenuItem>
             <MenuItem value="1">1L</MenuItem>
             <MenuItem value="2">2L</MenuItem>
             <MenuItem value="3">3L</MenuItem>

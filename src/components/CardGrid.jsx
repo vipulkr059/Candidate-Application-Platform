@@ -1,11 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import {
-  Box,
-  CircularProgress,
-  Container,
-  Grid,
-  Skeleton,
-} from "@mui/material";
+import { Container, Grid, Skeleton } from "@mui/material";
 import JobCard from "./JobCard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../features/dataSlice";
@@ -19,17 +13,53 @@ const CardGrid = () => {
 
   const containerRef = useRef(null);
 
+  useEffect(() => {
+    // Fetch initial data when the component mounts
+
+    dispatch(fetchData({ offset: 0, limit: 10 }));
+  }, [dispatch]);
+
+  const handleScroll = () => {
+    const container = containerRef.current;
+    if (container) {
+      const { scrollTop, clientHeight, scrollHeight } = container;
+      // Calculate the distance from the bottom of the container
+      const distanceFromBottom = scrollHeight - (scrollTop + clientHeight);
+
+      // Check if the user has scrolled close to the bottom (within 20 pixels)
+      if (distanceFromBottom < 20 && hasMore && !loading) {
+        // Dispatch fetchData with an updated offset
+        dispatch(fetchData({ offset: data.length, limit: 10 }));
+      }
+    }
+  };
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (container) {
+      // Add scroll event listener to the container
+      container.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [handleScroll]);
+
   const filterData = () => {
-    let tempData = [...data];
-    tempData = tempData.filter((item) => {
+    const tempData = data.filter((item) => {
       if (role && item.jobRole !== role) {
         return false;
       }
       if (location && item.location !== location) {
         return false;
       }
-      if (companyName && item.companyName !== companyName.toLowerCase()) {
-        console.log(companyName);
+      if (
+        companyName &&
+        !item.companyName.toLowerCase().includes(companyName.toLowerCase())
+      ) {
         return false;
       }
 
@@ -51,44 +81,8 @@ const CardGrid = () => {
 
       return true;
     });
-
     return tempData;
   };
-
-  const handleScroll = () => {
-    const container = containerRef.current;
-    if (container) {
-      const { scrollTop, clientHeight, scrollHeight } = container;
-      // Calculate the distance from the bottom of the container
-      const distanceFromBottom = scrollHeight - (scrollTop + clientHeight);
-
-      // Check if the user has scrolled close to the bottom (within 20 pixels)
-      if (distanceFromBottom < 20 && hasMore && !loading) {
-        // Dispatch fetchData with an updated offset
-        dispatch(fetchData({ offset: data.length, limit: 10 }));
-      }
-    }
-  };
-
-  useEffect(() => {
-    // Fetch initial data when the component mounts
-
-    dispatch(fetchData({ offset: 0, limit: 10 }));
-  }, [dispatch]);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (container) {
-      // Add scroll event listener to the container
-      container.addEventListener("scroll", handleScroll);
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, [handleScroll]);
 
   return (
     <Container
@@ -103,7 +97,7 @@ const CardGrid = () => {
       }}
     >
       <FilterComponent />
-      <Grid container spacing={3} padding={5}>
+      <Grid container spacing={2} padding={5}>
         {Array.isArray(filterData()) &&
           filterData().map((item, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
