@@ -12,8 +12,9 @@ import { setFilters } from "../features/filterSlice";
 
 const FilterComponent = () => {
   const [searchText, setSearchText] = useState("");
-  const { role, location, experience, remote, salary, companyName } =
-    useSelector((state) => state.filter);
+  const { role, location, experience, remote, salary } = useSelector(
+    (state) => state.filter
+  );
   const dispatch = useDispatch();
 
   const handleSearchChange = (e) => {
@@ -50,6 +51,7 @@ const FilterComponent = () => {
             <MenuItem value="backend">Backend</MenuItem>
             <MenuItem value="android">Android</MenuItem>
             <MenuItem value="ios">IOS</MenuItem>
+            <MenuItem value="tech lead">Tech Lead</MenuItem>
           </Select>
         </FormControl>
       </Grid>
@@ -66,8 +68,9 @@ const FilterComponent = () => {
           >
             <MenuItem value="all">All</MenuItem>
             <MenuItem value="delhi ncr">Delhi NCR</MenuItem>
-            <MenuItem value="banglore">Banglore</MenuItem>
+            <MenuItem value="bangalore">Bangalore</MenuItem>
             <MenuItem value="mumbai">Mumbai</MenuItem>
+            <MenuItem value="chennai">Chennai</MenuItem>
           </Select>
         </FormControl>
       </Grid>
@@ -87,7 +90,7 @@ const FilterComponent = () => {
             <MenuItem value="2">2</MenuItem>
             <MenuItem value="3">3</MenuItem>
             <MenuItem value="4">4</MenuItem>
-            <MenuItem value="5">5</MenuItem>
+            <MenuItem value="5">5+</MenuItem>
           </Select>
         </FormControl>
       </Grid>
